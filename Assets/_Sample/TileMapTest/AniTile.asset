@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: AniTile
   m_EditorClassIdentifier: 
   m_AnimatedSprites:
-  - {fileID: -5701474561861110249, guid: 6cbbc88135ad5a040ad3f3ab34727d98, type: 3}
-  - {fileID: 902773042312827701, guid: 6cbbc88135ad5a040ad3f3ab34727d98, type: 3}
+  - {fileID: 1030017333, guid: c500b5864ff17c64885431b7145276de, type: 3}
+  - {fileID: -1622859702, guid: c500b5864ff17c64885431b7145276de, type: 3}
   m_MinSpeed: 0.5
   m_MaxSpeed: 1.5
   m_AnimationStartTime: 0
