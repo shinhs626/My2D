@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: db4d8ccab7b311141a993b1cf0578061
+guid: e1d8704c5f9dab246a081464fd4804ab
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4341419392773482299
-    second: adventurer-attack1-00_0
+      213: 8304861591815558886
+    second: _AttackNoMovement_0
+  - first:
+      213: 4266374257060350693
+    second: _AttackNoMovement_1
+  - first:
+      213: 6355687800426313508
+    second: _AttackNoMovement_2
+  - first:
+      213: 4357845935041768834
+    second: _AttackNoMovement_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,23 +122,89 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: adventurer-attack1-00_0
+      name: _AttackNoMovement_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 26
         y: 0
-        width: 50
-        height: 37
-      alignment: 9
-      pivot: {x: 0.5, y: 0.3}
+        width: 41
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b3761479fe1df3c30800000000000000
-      internalID: 4341419392773482299
+      spriteID: 6e693f0ed9bc04370800000000000000
+      internalID: 8304861591815558886
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _AttackNoMovement_1
+      rect:
+        serializedVersion: 2
+        x: 158
+        y: 0
+        width: 68
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ea04f658c4353b30800000000000000
+      internalID: 4266374257060350693
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _AttackNoMovement_2
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 0
+        width: 67
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 427b1bf6160f33850800000000000000
+      internalID: 6355687800426313508
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _AttackNoMovement_3
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 0
+        width: 61
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 28d6b000acd2a7c30800000000000000
+      internalID: 4357845935041768834
       vertices: []
       indices: 
       edges: []
@@ -138,7 +213,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 89029b5ec83b92340a33fb6db455d9d6
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +223,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      adventurer-attack1-00_0: 4341419392773482299
+      _AttackNoMovement_0: 8304861591815558886
+      _AttackNoMovement_1: 4266374257060350693
+      _AttackNoMovement_2: 6355687800426313508
+      _AttackNoMovement_3: 4357845935041768834
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: db4d8ccab7b311141a993b1cf0578061
+guid: 6951bf2c4a2130c45907454f14c244f8
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4341419392773482299
-    second: adventurer-attack1-00_0
+      213: 7627258527157835838
+    second: _Fall_0
+  - first:
+      213: -2614867860447544799
+    second: _Fall_1
+  - first:
+      213: 6615151302305398152
+    second: _Fall_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,23 +119,67 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: adventurer-attack1-00_0
+      name: _Fall_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 38
         y: 0
-        width: 50
-        height: 37
-      alignment: 9
-      pivot: {x: 0.5, y: 0.3}
+        width: 31
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b3761479fe1df3c30800000000000000
-      internalID: 4341419392773482299
+      spriteID: e38df41383779d960800000000000000
+      internalID: 7627258527157835838
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _Fall_1
+      rect:
+        serializedVersion: 2
+        x: 158
+        y: 0
+        width: 31
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 12a307bf88f16bbd0800000000000000
+      internalID: -2614867860447544799
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _Fall_2
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 0
+        width: 31
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 88d30659f0dbdcb50800000000000000
+      internalID: 6615151302305398152
       vertices: []
       indices: 
       edges: []
@@ -138,7 +188,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 89029b5ec83b92340a33fb6db455d9d6
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +198,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      adventurer-attack1-00_0: 4341419392773482299
+      _Fall_0: 7627258527157835838
+      _Fall_1: -2614867860447544799
+      _Fall_2: 6615151302305398152
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -192,6 +192,23 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+--- !u!114 &-4804105838667429691
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1d4d96eb18a4a4a93144a6bf265bb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boolName: CannotMove
+  updateOnState: 0
+  updateOnStateMachine: 1
+  valueEnter: 1
+  valueExit: 0
 --- !u!1102 &-4485213736284655612
 AnimatorState:
   serializedVersion: 6
@@ -342,17 +359,17 @@ AnimatorStateMachine:
   m_AnyStateTransitions: []
   m_EntryTransitions: []
   m_StateMachineTransitions:
-  - first: {fileID: 6110095048295261694}
-    second:
-    - {fileID: 3470312317746133456}
-  - first: {fileID: -339116622256153801}
-    second:
-    - {fileID: 2521380588412902214}
   - first: {fileID: -4051002545362791909}
     second:
     - {fileID: -6867848753058383054}
     - {fileID: -3612405967851656736}
     - {fileID: 1171645468388032237}
+  - first: {fileID: -339116622256153801}
+    second:
+    - {fileID: 2521380588412902214}
+  - first: {fileID: 6110095048295261694}
+    second:
+    - {fileID: 3470312317746133456}
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 50, y: 20, z: 0}
   m_EntryPosition: {x: 50, y: 120, z: 0}
@@ -944,7 +961,8 @@ AnimatorStateMachine:
   m_AnyStateTransitions: []
   m_EntryTransitions: []
   m_StateMachineTransitions: {}
-  m_StateMachineBehaviours: []
+  m_StateMachineBehaviours:
+  - {fileID: -4804105838667429691}
   m_AnyStatePosition: {x: 80, y: -130, z: 0}
   m_EntryPosition: {x: 50, y: 120, z: 0}
   m_ExitPosition: {x: 800, y: 120, z: 0}

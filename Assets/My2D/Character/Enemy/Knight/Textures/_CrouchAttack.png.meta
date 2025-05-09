@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: db4d8ccab7b311141a993b1cf0578061
+guid: 5895e1c31ee304047b7e63f6469ef678
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4341419392773482299
-    second: adventurer-attack1-00_0
+      213: -5589327875898107882
+    second: _CrouchAttack_0
+  - first:
+      213: -4079485388738996815
+    second: _CrouchAttack_1
+  - first:
+      213: -4272872418886566087
+    second: _CrouchAttack_2
+  - first:
+      213: -3847299042336022702
+    second: _CrouchAttack_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,23 +122,89 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: adventurer-attack1-00_0
+      name: _CrouchAttack_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 30
         y: 0
-        width: 50
-        height: 37
-      alignment: 9
-      pivot: {x: 0.5, y: 0.3}
+        width: 38
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b3761479fe1df3c30800000000000000
-      internalID: 4341419392773482299
+      spriteID: 61897ef09e7be62b0800000000000000
+      internalID: -5589327875898107882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _CrouchAttack_1
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 0
+        width: 83
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b5d0d927a1c267c0800000000000000
+      internalID: -4079485388738996815
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _CrouchAttack_2
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 0
+        width: 55
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93fb3b57c25b3b4c0800000000000000
+      internalID: -4272872418886566087
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _CrouchAttack_3
+      rect:
+        serializedVersion: 2
+        x: 379
+        y: 0
+        width: 52
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 25f5cd4a7e5ab9ac0800000000000000
+      internalID: -3847299042336022702
       vertices: []
       indices: 
       edges: []
@@ -138,7 +213,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 89029b5ec83b92340a33fb6db455d9d6
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +223,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      adventurer-attack1-00_0: 4341419392773482299
+      _CrouchAttack_0: -5589327875898107882
+      _CrouchAttack_1: -4079485388738996815
+      _CrouchAttack_2: -4272872418886566087
+      _CrouchAttack_3: -3847299042336022702
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
