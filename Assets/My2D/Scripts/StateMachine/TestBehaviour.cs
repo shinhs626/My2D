@@ -3,7 +3,7 @@ using UnityEngine;
 namespace My2D
 {
     //애니메이터의 SubStateMachine 이나 State에 부착되는 스크립트
-    public class TestBehavior : StateMachineBehaviour
+    public class TestBehaviour : StateMachineBehaviour
     {
         #region Variables
         public bool updateOnState;
@@ -38,21 +38,21 @@ namespace My2D
         }
 
         // OnStateMove is called before OnStateMove is called on any state inside this state machine
-        override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-        {
-            
-        }
+        //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        //{
+        //    
+        //}
 
         // OnStateIK is called before OnStateIK is called on any state inside this state machine
-        override public void OnStateIK(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-        {
-            
-        }
+        //override public void OnStateIK(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        //{
+        //    
+        //}
 
         // OnStateMachineEnter is called when entering a state machine via its Entry Node
         override public void OnStateMachineEnter(Animator animator, int stateMachinePathHash)
         {
-            if (updateOnStateMachine)
+            if(updateOnStateMachine)
             {
                 Debug.Log("OnStateMachineEnter 작동");
             }
@@ -61,11 +61,10 @@ namespace My2D
         // OnStateMachineExit is called when exiting a state machine via its Exit Node
         override public void OnStateMachineExit(Animator animator, int stateMachinePathHash)
         {
-            //if (updateOnStateMachine)
-            //{
-            //    Debug.Log("OnStateMachineExit 작동");
-            //}
+            if(updateOnStateMachine)
+            {
+                Debug.Log("OnStateMachineExit 작동");
+            }
         }
     }
-
 }

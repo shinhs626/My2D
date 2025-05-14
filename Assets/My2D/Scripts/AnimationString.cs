@@ -7,13 +7,18 @@ namespace My2D
     {
         public static string isMoving = "IsMoving";
         public static string isRunning = "IsRunning";
-        public static string jumpTrriger = "Jump";
+        public static string jumpTrigger = "Jump";
         public static string yVelocity = "YVelocity";
         public static string isGround = "IsGround";
         public static string isCelling = "IsCelling";
         public static string isWall = "IsWall";
-        public static string attackTrriger = "Attack";
+        public static string attackTrigger = "Attack";
         public static string cannotMove = "CannotMove";
+        public static string hasTarget = "HasTarget";
+        public static string cooldownTime = "CooldownTime";
+        public static string hitTrigger = "Hited";
+        public static string lockVelocity = "LockVelocity";
+        public static string isDeath = "IsDeath";
+        public static string bowAttackTrigger = "BowAttack";
     }
-
 }

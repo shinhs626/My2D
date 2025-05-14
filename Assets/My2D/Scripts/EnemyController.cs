@@ -1,5 +1,6 @@
 using UnityEditor.Tilemaps;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 namespace My2D
 {
@@ -10,7 +11,7 @@ namespace My2D
         Right
     }
 
-    //Enemy Character를 관리하는 클래스
+    //적 캐릭터를 관리하는 클래스
     [RequireComponent(typeof(Rigidbody2D), typeof(TouchingDirection))]
     public class EnemyController : MonoBehaviour
     {
@@ -18,31 +19,94 @@ namespace My2D
         //참조
         private Rigidbody2D rb2D;
         private TouchingDirection touchingDirection;
+        public Animator animator;
+        public DetectionZone detectionZone; //플레이어 감지
+        private Damageable damageable;
+        public DetectionZone cliffeDetection;
 
-        private Vector2 enemyMove = Vector2.right;
-
+        //이동 속도
         [SerializeField] private float walkSpeed = 4f;
 
-        //현재 이동 방향을 저장
-        private WalkableDirection walkableDirection = WalkableDirection.Right;
+        //이동 방향 Vector
+        private Vector2 directionVector = Vector2.right;
 
-        // Flip이 이미 실행됐는지 체크
-        private bool isFacingWall = false;
+        //현재 이동 방향을 저장
+        private WalkableDirection walkDirection = WalkableDirection.Right;
+
+        //정지
+        private float stopRate = 0.2f;
+
+        //적 감지
+        private bool hasTarget = false;
         #endregion
 
         #region Property
-        public WalkableDirection WalkableDirection
+        public WalkableDirection WalkDirection
         {
             get
             {
-                return walkableDirection;
+                return walkDirection;
+            }
+            set
+            {   
+                //방향전환이 일어나는 시점
+                if(walkDirection != value)
+                {
+                    //반대방향을 바라보도록 한다 - 이미지 플립
+                    this.transform.localScale *= new Vector2(-1, 1);
+
+                    //반대쪽으로 위치 이동하라
+                    if(value == WalkableDirection.Left)
+                    {
+                        directionVector = Vector2.left;
+                    }
+                    else if(value == WalkableDirection.Right)
+                    {
+                        directionVector = Vector2.right;
+                    }
+                }
+
+                walkDirection = value;
+            }
+        }
+
+        //이동 제한 - 애니메이터 파라미터값 읽어오기
+        public bool CannotMove
+        {
+            get
+            {
+                return animator.GetBool(AnimationString.cannotMove);
+            }
+
+        }
+
+        //적 감지
+        public bool HasTarget
+        {
+            get
+            {
+                return hasTarget;
             }
             set
             {
-                walkableDirection = value;
+                hasTarget = value;
+                animator.SetBool(AnimationString.hasTarget, value);
+            }
+        }
+
+        public float CooldownTime
+        {
+            get
+            {
+                return animator.GetFloat(AnimationString.cooldownTime);
+            }
+            set
+            {
+                animator.SetFloat(AnimationString.cooldownTime, value);
             }
         }
         #endregion
+
 
         #region Unity Event Method
         private void Awake()
@@ -50,39 +114,74 @@ namespace My2D
             //참조
             rb2D = this.GetComponent<Rigidbody2D>();
             touchingDirection = this.GetComponent<TouchingDirection>();
+            damageable = this.GetComponent<Damageable>();
+
+            //델리게이트 함수 등록
+            damageable.hitAction += OnHit;
+
+            //cliffeDetection 이벤트 함수 등록
+            cliffeDetection.noColliderRamain += Flip;
         }
+
+        private void Update()
+        {
+            //적 감지
+            HasTarget = (detectionZone.detectedColliders.Count > 0);
+
+            //CooldownTime
+            if (animator.GetFloat(AnimationString.cooldownTime) > 0)
+            {
+                CooldownTime -= Time.deltaTime;
+            }
+        }
+
         private void FixedUpdate()
         {
-            //좌우 이동
-            rb2D.linearVelocity = new Vector2(enemyMove.x * walkSpeed, rb2D.linearVelocityY);
-
-            if (touchingDirection.IsWall && touchingDirection.IsGround)
+            //벽을 만났을때 방향전환하여 이동한다
+            if(touchingDirection.IsWall && touchingDirection.IsGround)
             {
-
+                Flip();
             }
+
+            if(damageable.LockVelocity == false)
+            {
+                //좌우 이동
+                if (CannotMove)
+                {
+                    rb2D.linearVelocity = new Vector2(Mathf.Lerp(rb2D.linearVelocityX, 0f, stopRate), rb2D.linearVelocityY);
+                }
+                else
+                {
+                    rb2D.linearVelocity = new Vector2(directionVector.x * walkSpeed, rb2D.linearVelocityY);
+                }
+            }
+            
         }
         #endregion
 
         #region Custom Method
-        public void Flip()
+        //방향전환
+        void Flip()
         {
-            Debug.Log("방향전환");
-            if(WalkableDirection == WalkableDirection.Left)
+            if(WalkDirection == WalkableDirection.Left)
             {
-                WalkableDirection = WalkableDirection.Right;
-                Debug.Log("방향전환 오른쪽");
+                WalkDirection = WalkableDirection.Right;
             }
-            else if(WalkableDirection == WalkableDirection.Right)
+            else if(WalkDirection == WalkableDirection.Right)
             {
-                WalkableDirection = WalkableDirection.Left;
-                Debug.Log("방향전환 왼쪽");
+                WalkDirection = WalkableDirection.Left;
             }
             else
             {
-                Debug.Log("에러");
+                Debug.Log("방향 전환 에러");
             }
         }
+        //데미지를 입을때 호출되는 함수- 데미지 입었을때
+        public void OnHit(float damage, Vector2 knockback)
+        {
+            rb2D.linearVelocity = new Vector2(knockback.x, rb2D.linearVelocityY + knockback.y);
+        }
         #endregion
-    }
 
+    }
 }

@@ -9,12 +9,13 @@ namespace My2D
         #region Variables
         //강체
         private Rigidbody2D rb2D;
-
-        //Animator
+        //애니메이터
         public Animator animator;
-
-        //Touch
+        //그라운드, 벽 체크
         private TouchingDirection touchingDirection;
+        //데미지
+        private Damageable damageable;
+
 
         //이동        
         //걷는 속도 - 좌우로 걷는다
@@ -22,83 +23,91 @@ namespace My2D
         //뛰는 속도 - 좌우로 뛴다
         [SerializeField] private float runSpeed = 7f;
         //점프시 좌우 이동 속도
-        [SerializeField] private float airSpeed = 5f;
+        [SerializeField] private float airSpeed = 2f;
 
         //이동 입력값
         private Vector2 inputMove;
 
-        //키 입력
-        [SerializeField] private bool isMoving = false;
-        [SerializeField] private bool isRunning = false;
-        //[SerializeField] private 
+        //이동 키입력
+        private bool isMoving = false;
+        //런 키입력
+        private bool isRunning = false;
 
         //반전
-        //캐릭터 이미지가 바라보는 방향 상태 - 오른쪽 바라보면 true
+        //캐릭터 이미지가 바라보는 방향 상태 : 오른쪽 바라보면 true
         private bool isFacingRight = true;
 
         //점프키를 눌렀을때 위로 올라가는 속도값
-        [SerializeField] private float jumpVelocity = 5f;
+        [SerializeField] private float jumpForce = 5f;
         #endregion
 
         #region Property
         //이동 키입력값 - 애니메이션 파라미터 셋팅
         public bool IsMoving
         {
-            get { return isMoving; }
-            set 
-            { 
+            get
+            {
+                return isMoving;
+            }
+            set
+            {
                 isMoving = value;
                 animator.SetBool(AnimationString.isMoving, value);
             }
         }
+
+        //런 키입력값 - 애니메이션 파라미터 셋팅
         public bool IsRunning
         {
-            get { return isRunning; }
+            get
+            {
+                return isRunning;
+            }
             set
             {
                 isRunning = value;
                 animator.SetBool(AnimationString.isRunning, value);
             }
         }
+
         //현재 이동 속도 셋팅
         public float CurrentSpeed
         {
             get
             {
                 //공격시 이동 제어
-                if (CannotMove)
+                if(CannotMove)
                 {
                     return 0f;
                 }
 
-                //인풋값이 들어왔을때 && 벽에 부딪히지 않을때
+                //인풋값이 들어왔을때 and 벽에 부딪히지 않을때
                 if (IsMoving && touchingDirection.IsWall == false)
                 {
-                    if (touchingDirection.IsGround)
+                    if(touchingDirection.IsGround) //땅에 있을때
                     {
-                        if (isRunning)  //시프트를 누르고 있을때
+                        if (IsRunning) //시프트를 누르고 있을때
                         {
                             return runSpeed;
                         }
                         else
                         {
                             return walkSpeed;
-                        }                        
+                        }
                     }
                     else //공중에 떠 있을때
                     {
                         return airSpeed;
-                    }                 
+                    }
                 }
                 else
                 {
-                    return 0f;//Idle State
+                    return 0f;  //idle state, 벽에 부딪히고 있는 경우
                 }
-
             }
         }
 
-        //캐릭터 이미지가 바라보는 방향 상태 - 오른쪽 바라보면 true
+        //캐릭터 이미지가 바라보는 방향 상태 : 오른쪽 바라보면 true
         public bool IsFacingRight
         {
             get
@@ -107,12 +116,11 @@ namespace My2D
             }
             set
             {
-                //반전구현
-                if(IsFacingRight != value)
+                //반전 구현
+                if(isFacingRight != value)
                 {
-                    this.transform.localScale *= new Vector2(-1, 1);
+                    transform.localScale *= new Vector2(-1, 1);
                 }
-
                 isFacingRight = value;
             }
         }
@@ -125,6 +133,9 @@ namespace My2D
                 return animator.GetBool(AnimationString.cannotMove);
             }
         }
+
+        //죽음 체크
+        public bool IsDeath => damageable.IsDeath;
         #endregion
 
         #region Unity Event Method
@@ -132,16 +143,21 @@ namespace My2D
         {
             //참조
             rb2D = this.GetComponent<Rigidbody2D>();
-            touchingDirection = this.GetComponent<TouchingDirection>();  // 추가
+            touchingDirection = this.GetComponent<TouchingDirection>();
 
+            damageable = this.GetComponent<Damageable>();
+            //델리게이트 함수 등록
+            damageable.hitAction += OnHit;
         }
 
         private void FixedUpdate()
         {
             //인풋값에 따라 플레이어 좌우 이동
-            rb2D.linearVelocity = new Vector2(inputMove.x * CurrentSpeed, rb2D.linearVelocity.y);
-
-            //애니메이션 속도값 셋팅
+            if(damageable.LockVelocity == false)
+            {
+                rb2D.linearVelocity = new Vector2(inputMove.x * CurrentSpeed, rb2D.linearVelocityY);
+            }
+            //애니메이터 속도값 셋팅
             animator.SetFloat(AnimationString.yVelocity, rb2D.linearVelocityY);
         }
         #endregion
@@ -150,19 +166,28 @@ namespace My2D
         public void OnMove(InputAction.CallbackContext context)
         {
             inputMove = context.ReadValue<Vector2>();
-            //입력값에 따른 반전
-            SetFacingDirection(inputMove);
 
-            //인풋 값이 들어오면 IsMoving 파라미터 셋팅
-            IsMoving = (inputMove != Vector2.zero);
+            if(IsDeath == false)
+            {
+                //입력값에 따른 반전
+                SetFacingDirection(inputMove);
+
+                //인풋 값이 들어오면 IsMoving 파라미터 셋팅
+                IsMoving = (inputMove != Vector2.zero);
+            }
+            else
+            {
+                IsMoving = false;
+            }
         }
+
         public void OnRun(InputAction.CallbackContext context)
         {
-            if (context.started)
+            if(context.started) //button down
             {
                 IsRunning = true;
             }
-            else if(context.canceled)
+            else if(context.canceled)   //button up
             {
                 IsRunning = false;
             }
@@ -170,39 +195,53 @@ namespace My2D
 
         public void OnJump(InputAction.CallbackContext context)
         {
-            if (touchingDirection.IsGround == false)
-                return;
-
-            if (context.started)
+            if(IsDeath == false)
             {
-                //속도 연산
-                rb2D.linearVelocity = new Vector2(rb2D.linearVelocityX, jumpVelocity);
+                if (context.started && touchingDirection.IsGround) //button down
+                {
+                    //속도 연산 - 위로 이동하는 속도값 셋팅
+                    rb2D.linearVelocity = new Vector2(rb2D.linearVelocityX, jumpForce);
 
-                //애니메이션
-                animator.SetTrigger(AnimationString.jumpTrriger);
+                    //애니메이션
+                    animator.SetTrigger(AnimationString.jumpTrigger);
+                }
             }
+            
         }
 
         public void OnAttack(InputAction.CallbackContext context)
         {
-            if (context.started)
+            if(context.started && touchingDirection.IsGround) //mouse left button down
             {
-                animator.SetTrigger(AnimationString.attackTrriger);
+                //공격하라 애니메이션
+                animator.SetTrigger(AnimationString.attackTrigger);
+            }
+        }
+       public void OnBowAttack(InputAction.CallbackContext context)
+        {
+            if(context.started && touchingDirection.IsGround)
+            {
+                animator.SetTrigger(AnimationString.bowAttackTrigger);
             }
         }
 
         //반전, 바라보는 방향 전환 - 입력값에 따라
         void SetFacingDirection(Vector2 moveInput)
-        {
-            //좌로 이동, 우로 이동
-            if(moveInput.x > 0f && IsFacingRight == false)    //왼쪽을 바라보고 있고 우로 이동
+        {            
+            if(moveInput.x > 0f && IsFacingRight == false) //왼쪽을 바라보고 있고 우로 이동 입력
             {
                 IsFacingRight = true;
             }
-            else if(moveInput.x < 0f && IsFacingRight == true)   //오른쪽을 바라보고 있고 좌로 이동
+            else if(moveInput.x < 0f && IsFacingRight == true) //오른쪽을 바라보고 있는데 좌로 이동
             {
                 IsFacingRight = false;
             }
+        }
+        
+        //데미지를 입을때 호출되는 함수- 데미지 입었을때
+        public void OnHit(float damage, Vector2 knockback)
+        {
+            rb2D.linearVelocity = new Vector2(knockback.x, rb2D.linearVelocityY + knockback.y);
         }
         #endregion
 
