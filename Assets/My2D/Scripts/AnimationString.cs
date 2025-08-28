@@ -16,9 +16,10 @@ namespace My2D
         public static string cannotMove = "CannotMove";
         public static string hasTarget = "HasTarget";
         public static string cooldownTime = "CooldownTime";
-        public static string hitTrigger = "Hited";
+        public static string hitTrigger = "Hit";
         public static string lockVelocity = "LockVelocity";
         public static string isDeath = "IsDeath";
         public static string bowAttackTrigger = "BowAttack";
+
     }
 }

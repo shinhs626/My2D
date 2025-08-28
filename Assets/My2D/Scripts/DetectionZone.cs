@@ -12,8 +12,8 @@ namespace My2D
         //detection Zone에 들어온 콜라이더들을 저장하는 리스트 - 현재 Zone 안에 있는 콜라이더 목록
         public List<Collider2D> detectedColliders = new List<Collider2D>();
 
-        //리스트에 남아있는 콜라이더가 없으면 호출한다
-        public UnityAction noColliderRamain;
+        //리스트에 남아 있는 콜라이더가 없으면 호출한다
+        public UnityAction noColliderRamain; 
         #endregion
 
         #region Unity Event Method
@@ -22,7 +22,6 @@ namespace My2D
             //Debug.Log($"{collision.name} 충돌체가 존에 들어 왔다");    
             //충돌체가 존에 들어 오면 리스트에 추가
             detectedColliders.Add(collision);
-            //Debug.Log("플레이어에게 데미지 10을 준다");
         }
 
         private void OnTriggerExit2D(Collider2D collision)
@@ -32,7 +31,7 @@ namespace My2D
             detectedColliders.Remove(collision);
 
             //리스트에 아무것도 없으면 이벤트 함수에 등록된 함수 호출
-            if (detectedColliders.Count <= 0)
+            if(detectedColliders.Count <= 0)
             {
                 noColliderRamain?.Invoke();
             }

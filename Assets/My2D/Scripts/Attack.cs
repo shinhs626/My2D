@@ -15,24 +15,27 @@ namespace My2D
         private Vector2 knockback = Vector2.zero;
         #endregion
 
-        #region Unity Event Method
+        #region Unity Envent Method
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            Damageable damageable =  collision.GetComponent<Damageable>();
+            //Debug.Log($"플레어에게 데미지 {attackDamage}를 주었다");
+            // collision 에서 Damageable 컴포넌트를 찾아서 TakeDamage 주세요
+            Damageable damageable = collision.GetComponent<Damageable>();
+
             if(damageable != null)
             {
                 //공격하는 캐릭터의 방향에 따라 밀리는 방향 설정
-                Vector2 deliveredKnockback = this.transform.parent.parent.localScale.x > 0 ? knockback : new Vector2(-knockback.x, knockback.y);
+                Vector2 deliveredKnockback = this.transform.parent.parent.localScale.x > 0
+                    ? knockback : new Vector2(-knockback.x, knockback.y);
 
                 bool isHit = damageable.TakeDamage(attackDamage, deliveredKnockback);
-
-                if (isHit)
+                /*if(isHit)
                 {
-                    Debug.Log(collision.name + " hit for " + attackDamage);
-                }
+                    Debug.Log(collision.name + "hit for " + attackDamage);
+                }*/
             }
         }
         #endregion
-    }
 
+    }
 }

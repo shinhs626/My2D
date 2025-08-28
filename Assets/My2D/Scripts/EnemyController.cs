@@ -1,6 +1,5 @@
 using UnityEditor.Tilemaps;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
 
 namespace My2D
 {
@@ -94,6 +93,7 @@ namespace My2D
             }
         }
 
+        //공격 쿨타임 : 읽어들여서 0보다 크면 3초 타이머를 돌려 0으로 다시 파라미터 값을 셋팅
         public float CooldownTime
         {
             get
@@ -114,8 +114,8 @@ namespace My2D
             //참조
             rb2D = this.GetComponent<Rigidbody2D>();
             touchingDirection = this.GetComponent<TouchingDirection>();
-            damageable = this.GetComponent<Damageable>();
 
+            damageable = this.GetComponent<Damageable>();
             //델리게이트 함수 등록
             damageable.hitAction += OnHit;
 
@@ -128,8 +128,8 @@ namespace My2D
             //적 감지
             HasTarget = (detectionZone.detectedColliders.Count > 0);
 
-            //CooldownTime
-            if (animator.GetFloat(AnimationString.cooldownTime) > 0)
+            //CooldownTimer
+            if (CooldownTime > 0)
             {
                 CooldownTime -= Time.deltaTime;
             }
@@ -143,9 +143,9 @@ namespace My2D
                 Flip();
             }
 
-            if(damageable.LockVelocity == false)
+            //좌우 이동
+            if (damageable.LockVelocity == false)
             {
-                //좌우 이동
                 if (CannotMove)
                 {
                     rb2D.linearVelocity = new Vector2(Mathf.Lerp(rb2D.linearVelocityX, 0f, stopRate), rb2D.linearVelocityY);
@@ -155,7 +155,6 @@ namespace My2D
                     rb2D.linearVelocity = new Vector2(directionVector.x * walkSpeed, rb2D.linearVelocityY);
                 }
             }
-            
         }
         #endregion
 
@@ -176,7 +175,8 @@ namespace My2D
                 Debug.Log("방향 전환 에러");
             }
         }
-        //데미지를 입을때 호출되는 함수- 데미지 입었을때
+
+        //데미지 입을때 호출되는 함수 - 데미지 입을때의 속도 셋팅
         public void OnHit(float damage, Vector2 knockback)
         {
             rb2D.linearVelocity = new Vector2(knockback.x, rb2D.linearVelocityY + knockback.y);

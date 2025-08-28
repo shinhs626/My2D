@@ -16,7 +16,6 @@ namespace My2D
         //데미지
         private Damageable damageable;
 
-
         //이동        
         //걷는 속도 - 좌우로 걷는다
         [SerializeField] private float walkSpeed = 4f;
@@ -135,7 +134,7 @@ namespace My2D
         }
 
         //죽음 체크
-        public bool IsDeath => damageable.IsDeath;
+        public bool IsDeath => animator.GetBool(AnimationString.isDeath);
         #endregion
 
         #region Unity Event Method
@@ -157,6 +156,7 @@ namespace My2D
             {
                 rb2D.linearVelocity = new Vector2(inputMove.x * CurrentSpeed, rb2D.linearVelocityY);
             }
+
             //애니메이터 속도값 셋팅
             animator.SetFloat(AnimationString.yVelocity, rb2D.linearVelocityY);
         }
@@ -195,18 +195,14 @@ namespace My2D
 
         public void OnJump(InputAction.CallbackContext context)
         {
-            if(IsDeath == false)
+            if (context.started && touchingDirection.IsGround && IsDeath == false) //button down
             {
-                if (context.started && touchingDirection.IsGround) //button down
-                {
-                    //속도 연산 - 위로 이동하는 속도값 셋팅
-                    rb2D.linearVelocity = new Vector2(rb2D.linearVelocityX, jumpForce);
-
-                    //애니메이션
-                    animator.SetTrigger(AnimationString.jumpTrigger);
-                }
+                //속도 연산 - 위로 이동하는 속도값 셋팅
+                rb2D.linearVelocity = new Vector2(rb2D.linearVelocityX, jumpForce);
+                
+                //애니메이션
+                animator.SetTrigger(AnimationString.jumpTrigger);
             }
-            
         }
 
         public void OnAttack(InputAction.CallbackContext context)
@@ -217,13 +213,16 @@ namespace My2D
                 animator.SetTrigger(AnimationString.attackTrigger);
             }
         }
-       public void OnBowAttack(InputAction.CallbackContext context)
+
+        public void OnBowAttack(InputAction.CallbackContext context)
         {
-            if(context.started && touchingDirection.IsGround)
+            if (context.started && touchingDirection.IsGround) //F key down
             {
+                //활을 쏘라
                 animator.SetTrigger(AnimationString.bowAttackTrigger);
             }
         }
+
 
         //반전, 바라보는 방향 전환 - 입력값에 따라
         void SetFacingDirection(Vector2 moveInput)
@@ -237,8 +236,8 @@ namespace My2D
                 IsFacingRight = false;
             }
         }
-        
-        //데미지를 입을때 호출되는 함수- 데미지 입었을때
+
+        //데미지 입을때 호출되는 함수 - 데미지 입을때의 속도 셋팅
         public void OnHit(float damage, Vector2 knockback)
         {
             rb2D.linearVelocity = new Vector2(knockback.x, rb2D.linearVelocityY + knockback.y);

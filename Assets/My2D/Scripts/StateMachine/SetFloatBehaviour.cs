@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace My2D
 {
-    // float형 타입 파라미터 변수를 관리하는 클래스
+    // Float형 타입 파라미터 변수를 관리하는 클래스
     // 상태(상태머신)에 들어갈때와 나올때 값을 설정해준다
     public class SetFloatBehaviour : StateMachineBehaviour
     {
@@ -26,7 +26,7 @@ namespace My2D
         // OnStateEnter is called before OnStateEnter is called on any state inside this state machine
         override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            if (updateOnStateEnter)
+            if(updateOnStateEnter)
             {
                 animator.SetFloat(floatName, valueEnter);
             }
@@ -38,7 +38,7 @@ namespace My2D
         //    
         //}
 
-        //OnStateExit is called before OnStateExit is called on any state inside this state machine
+        // OnStateExit is called before OnStateExit is called on any state inside this state machine
         override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             if (updateOnStateExit)
@@ -62,7 +62,7 @@ namespace My2D
         // OnStateMachineEnter is called when entering a state machine via its Entry Node
         override public void OnStateMachineEnter(Animator animator, int stateMachinePathHash)
         {
-            if (updateOnStateMachineEnter)
+            if(updateOnStateMachineEnter)
             {
                 animator.SetFloat(floatName, valueEnter);
             }
@@ -71,11 +71,10 @@ namespace My2D
         // OnStateMachineExit is called when exiting a state machine via its Exit Node
         override public void OnStateMachineExit(Animator animator, int stateMachinePathHash)
         {
-            if (updateOnStateMachineExit)
+            if(updateOnStateMachineExit)
             {
                 animator.SetFloat(floatName, valueExit);
             }
         }
     }
-
 }

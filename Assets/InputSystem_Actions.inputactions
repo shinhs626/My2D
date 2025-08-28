@@ -44,7 +44,7 @@
                 {
                     "name": "BowAttack",
                     "type": "Button",
-                    "id": "10dc16ca-2964-4efd-8774-21c576decb08",
+                    "id": "408094bb-7c03-4c74-84b6-801c221ed8b7",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -484,7 +484,7 @@
                 },
                 {
                     "name": "",
-                    "id": "917bae00-941a-468e-8266-c56f98260235",
+                    "id": "7542dfe0-dedd-4421-b8c6-95f20d327428",
                     "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
